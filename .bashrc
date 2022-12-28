@@ -63,6 +63,7 @@ cmt ()
 }
 
 # if CMakeLists.txt in cwd, build and run project. grep CMakeLists to get first executable name
+# only works if the executable gets outputted to the build directory
 cbrun ()
 {
 	[[ -f CMakeLists.txt ]] && {
@@ -70,7 +71,7 @@ cbrun ()
 
 		mcd build
 		cmake .. && make
-		./prog
+		./"$prog"
 	}
 }
 
@@ -82,6 +83,15 @@ gno ()
 	git remote add origin $1
 	git branch -M main
 	git push -u origin main
+}
+
+# function to push any of my bashrc changes to the github repo 
+grc()
+{
+	cd ~/Documents/bashrc
+	git stage .bashrc
+	git push https://github.com/pre-eth/.bashrc.git main
+	echo "Updated .bashrc on Github"
 }
 
 ### ALIASES ###
