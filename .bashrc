@@ -5,7 +5,7 @@
 # ██      ██   ██ ███████ ███████    ██    ██   ██ ██ ██   ██  ██████
 
 ### EXPORT ###
-export TERM="xterm-256color"                      # getting proper colors
+export TERM="truecolor"                           # getting proper colors
 export HISTCONTROL=ignoredups:erasedups           # no duplicate entries
 export WKSPS="~/Documents/C++"
 
@@ -23,7 +23,11 @@ export PATH="~/Documents/C++/pk/bin:/home/preethv/.cargo/bin:${PATH}"
 
 ### COMMANDS ###
 
-# count files in directory
+# shortcut to make file/dir readonly
+ro ()
+{
+	chmod 0444 $1
+}
 
 # explicit soft link cmd
 sln ()
@@ -34,8 +38,7 @@ sln ()
 # mkdir and cd at same time
 mcd ()
 {
-    mkdir -p -- "$1" &&
-    cd -P -- "$1"
+    mkdir -p -- "$1" && cd -P -- "$1"
 }
 
 # install a font system wide, set permissions, and update font cache per
@@ -89,6 +92,7 @@ gno ()
 grc()
 {
 	cd ~/Documents/bashrc
+	git pull https://github.com/pre-eth/.bashrc.git main
 	git stage .bashrc
 	git push https://github.com/pre-eth/.bashrc.git main
 	echo "Updated .bashrc on Github"
@@ -97,7 +101,7 @@ grc()
 ### ALIASES ###
 alias vv="neovide"
 alias vim="nvim"
-alias rc="nano ~/.bashrc"
+alias rc="nano ~/Documents/bashrc/.bashrc"
 alias nc="nano ~/.nanorc"
 
 # count files in directory
@@ -105,7 +109,7 @@ alias cntf="ls -l . | egrep -c ‘^-’"
 
 # C/C++
 alias cppd="cd ~/Documents/C++"
-alias hmake="cmake .. && make"	# stands for "hard make"
+alias hmake="rm build && mcd build && cmake .. && make"	# stands for "hard make"
 
 # RUST
 alias rud="cd ~/Documents/Rust"
