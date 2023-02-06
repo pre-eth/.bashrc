@@ -5,7 +5,7 @@
 # ██      ██   ██ ███████ ███████    ██    ██   ██ ██ ██   ██  ██████
 
 ### EXPORT ###
-export TERM="truecolor"                           # getting proper colors
+export XTERM="truecolor"                           # getting proper colors
 export HISTCONTROL=ignoredups:erasedups           # no duplicate entries
 export WKSPS="~/Documents/C++"
 
