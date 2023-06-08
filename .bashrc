@@ -130,6 +130,7 @@ alias rc="nano ~/Documents/bashrc/.bashrc"
 alias nc="nano ~/.nanorc"
 alias t3="cd ~/Documents/digitalt3"
 alias gti="git"
+alias virt="virt-manager"
 
 # count files in directory
 alias cntf="ls -l . | egrep -c ‘^-’"
