@@ -108,6 +108,7 @@ alias nv="neovide"
 alias vim="nvim"
 alias rc="nano ~/Documents/bashrc/.bashrc"
 alias nc="nano ~/.nanorc"
+alias t3="cd ~/Documents/digitalt3"
 alias gti="git"
 
 # count files in directory
