@@ -21,7 +21,7 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
-export PATH="~/Documents/C++/pk/bin:/home/preethv/.cargo/bin:${PATH}"
+export PATH="$ANDROID_HOME/platform-tools:$HOME/preethv/.cargo/bin:$PATH"
 
 ### COMMANDS ###
 
