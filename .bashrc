@@ -7,7 +7,9 @@
 ### EXPORT ###
 export XTERM="truecolor"                           # getting proper colors
 export HISTCONTROL=ignoredups:erasedups           # no duplicate entries
-export WKSPS="~/Documents/C++"
+export ANDROID_HOME=$HOME/Android/Sdk
+
+export AWS_DEV_PROFILE=dev-profile
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
