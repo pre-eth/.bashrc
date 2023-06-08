@@ -21,7 +21,7 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
-export PATH="$ANDROID_HOME/platform-tools:$HOME/preethv/.cargo/bin:$PATH"
+export PATH=$ANDROID_HOME/platform-tools:$HOME/preethv/.cargo/bin:$PATH
 
 ### COMMANDS ###
 
@@ -98,6 +98,26 @@ grc ()
 	git stage .bashrc
 	git push https://github.com/pre-eth/.bashrc.git main
 	echo "Updated .bashrc on Github"
+}
+
+### AWS RELATED DEFINITIONS ###
+
+# For deleting a file in a CodeCommit repository from your local machine
+#
+# The --profile flag is because I access AWS through the IAM Identity Center
+# If you have an IAM user account, you can delete that part. If not, make sure
+# the AWS_DEV_PROFILE variable above has the name of the SSO profile that gives
+# you access to CodeCommit
+#
+# USAGE: accd [BRANCH] [FILEPATH] [COMMIT_ID] (FILEPATH must start with repo name)
+accd ()
+{
+	local FILEPATH=$2 
+	aws codecommit delete-file --branch-name $1 \
+	--repository-name ${FILEPATH%%/*} \
+	--file-path ${FILEPATH#*/} \
+	--parent-commit-id $3 \
+	--profile $AWS_DEV_PROFILE
 }
 
 ### ALIASES ###
