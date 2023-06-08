@@ -91,7 +91,7 @@ gno ()
 }
 
 # function to push any of my bashrc changes to the github repo 
-grc()
+grc ()
 {
 	cd ~/Documents/bashrc
 	git pull https://github.com/pre-eth/.bashrc.git main
@@ -115,7 +115,7 @@ alias cntf="ls -l . | egrep -c ‘^-’"
 
 # C/C++
 alias cppd="cd ~/Documents/C++"
-alias hmake="rm build && mcd build && cmake .. && make"	# stands for "hard make"
+alias hmake="cmake .. && make"	# stands for "hard make"
 
 # RUST
 alias rud="cd ~/Documents/Rust"
@@ -170,6 +170,7 @@ alias fgrep='fgrep --color=auto'
 alias cp="cp -i"
 alias mv='mv -i'
 alias rm='rm -i'
+alias rmd="rm -d"
 
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
