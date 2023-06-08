@@ -101,10 +101,14 @@ grc()
 }
 
 ### ALIASES ###
-alias vv="neovide"
+alias dld="cd ~/Downloads"
+alias docs="cd ~/Documents"
+alias usrbin="cd /usr/local/bin/"
+alias nv="neovide"
 alias vim="nvim"
 alias rc="nano ~/Documents/bashrc/.bashrc"
 alias nc="nano ~/.nanorc"
+alias gti="git"
 
 # count files in directory
 alias cntf="ls -l . | egrep -c ‘^-’"
