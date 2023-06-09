@@ -6,10 +6,8 @@
 
 ### EXPORT ###
 export XTERM="truecolor"                           # getting proper colors
-export HISTCONTROL=ignoredups:erasedups           # no duplicate entries
+export HISTCONTROL=ignoredups:erasedups            # no duplicate entries
 export ANDROID_HOME=$HOME/Android/Sdk
-
-export AWS_DEV_PROFILE=dev-profile
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -21,6 +19,7 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
+
 export PATH=$ANDROID_HOME/platform-tools:$HOME/preethv/.cargo/bin:$PATH
 
 ### COMMANDS ###
@@ -73,7 +72,6 @@ cbrun ()
 {
 	[[ -f CMakeLists.txt ]] && {
 		local prog=$(grep -oP "(?<=add_executable\()\w+" CMakeLists.txt)
-
 		mcd build
 		cmake .. && make
 		./"$prog"
@@ -94,9 +92,9 @@ gno ()
 grc ()
 {
 	cd ~/Documents/bashrc
-	git pull https://github.com/pre-eth/.bashrc.git main
+	git pull origin main
 	git stage .bashrc
-	git push https://github.com/pre-eth/.bashrc.git main
+	git push origin main
 	echo "Updated .bashrc on Github"
 }
 
@@ -127,9 +125,9 @@ ssli ()
 # The --profile flag is because I access AWS through the IAM Identity Center
 # If you have an IAM user account, you can delete that part. If not, make sure
 # the AWS_DEV_PROFILE variable above has the name of the SSO profile that gives
-# you access to CodeCommit
+# you permission to access to CodeCommit
 #
-# USAGE: accd [BRANCH] [FILEPATH] [COMMIT_ID] (FILEPATH must start with repo name)
+# USAGE: accd [BRANCH] [FILEPATH] [FULL_COMMIT_ID] (FILEPATH must start with repo name)
 accd ()
 {
 	local FILEPATH=$2 
@@ -141,13 +139,14 @@ accd ()
 }
 
 ### GENERAL ALIASES ###
-alias dld="cd ~/Downloads"
-alias docs="cd ~/Documents"
+alias home="cd $HOME"
+alias dld="cd $HOME/Downloads"
+alias docs="cd $HOME/Documents"
 alias usrbin="cd /usr/local/bin/"
 alias nv="neovide"
 alias vim="nvim"
-alias rc="nano ~/Documents/bashrc/.bashrc"
-alias t3="cd ~/Documents/digitalt3"
+alias rc="nano $HOME/Documents/bashrc/.bashrc"
+alias t3="cd $HOME/Documents/digitalt3"
 alias virt="virt-manager"
 
 # count files in directory
@@ -225,25 +224,5 @@ alias calw="cargo clippy -- -D warnings"
 
 # check tests and non default features too
 alias cala="cargo clippy --all-targets --all-features -- -D warnings"
-
-# Colorize grep output (good for log files)
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-
-# confirm before overwriting something - credit to DistroTube for these
-alias cp="cp -i"
-alias mv='mv -i'
-alias rm='rm -i'
-alias rmd="rm -d"
-
-# User specific aliases and functions
-if [ -d ~/.bashrc.d ]; then
-	for rc in ~/.bashrc.d/*; do
-		if [ -f "$rc" ]; then
-			. "$rc"
-		fi
-	done
-fi
 
 unset rc
