@@ -42,6 +42,13 @@ mcd ()
     mkdir -p -- "$1" && cd -P -- "$1"
 }
 
+# view any Unicode codepoint for current font,
+# where $1 is the hex form of the codepoint
+ucp ()
+{
+	printf "$(printf '\\U%08x' $1)\n"	
+}
+
 # install a font system wide, set permissions, and update font cache per
 # https://docs.fedoraproject.org/en-US/quick-docs/fonts/#system-fonts
 fin ()
