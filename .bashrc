@@ -53,12 +53,12 @@ ucp ()
 # https://docs.fedoraproject.org/en-US/quick-docs/fonts/#system-fonts
 fin ()
 {
-	local path = "/usr/local/share/fonts"/"$1"
-	sudo mkdir -p path
-	sudo cp ./"$1"/*.ttf path
-	sudo chown -R root: path
-	sudo chmod 644 path/*
-	sudo restorecon -RF path
+	local path="/usr/local/share/fonts"/"$1"
+	sudo mkdir -p $path
+	sudo cp ./"$1"/*.ttf $path
+	sudo chown -R root: $path
+	sudo chmod 644 $path/*
+	sudo restorecon -RF $path
 	sudo fc-cache -v
 	echo Installed font "$1"
 }
