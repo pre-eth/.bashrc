@@ -86,7 +86,9 @@ cbrun ()
 	}
 }
 
-# git function to remove a remote origin and change it to the provided argument URL instead, then switch to master and push our repo
+# git function to remove a remote origin and change it to the provided 
+# argument URL instead, then switch to master and push our repo
+#
 # gno stands for "git new origin"
 gno ()
 {
@@ -144,12 +146,15 @@ accd ()
 alias home="cd $HOME"
 alias dld="cd $HOME/Downloads"
 alias docs="cd $HOME/Documents"
+alias t3="cd $HOME/Documents/digitalt3"
+alias rc="code $HOME/Documents/bashrc/.bashrc"
+
 alias usrbin="cd /usr/local/bin/"
+alias fonts="cd /usr/local/share/fonts"
 alias nv="neovide"
 alias vim="nvim"
-alias rc="nano $HOME/Documents/bashrc/.bashrc"
-alias t3="cd $HOME/Documents/digitalt3"
-alias virt="virt-manager"
+alias virt="virt-viewer"
+alias virtm="virt-manager"
 
 # count files in directory
 alias cntf="ls -l . | egrep -c ‘^-’"
