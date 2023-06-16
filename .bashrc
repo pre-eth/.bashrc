@@ -65,12 +65,13 @@ fin ()
 
 # opens CMakeLists.txt regardless of whether it's in current dir or parent dir which can be
 # useful if we are currently in the /build dir of the project
+# you can swap "code" with editor of your choice (vim, nano, emacs, etc)
 cmt ()
 {	# only one of these can be true at a time
 	# the [[ ]] syntax only works in bash and zsh and korn shells,
 	# so you may have to use [ ] if this isn't working for you
-	[[ -f CMakeLists.txt ]] && nano CMakeLists.txt
-	[[ -f ../CMakeLists.txt ]] && nano ../CMakeLists.txt
+	[[ -f CMakeLists.txt ]] && code CMakeLists.txt
+	[[ -f ../CMakeLists.txt ]] && code ../CMakeLists.txt
 }
 
 # if CMakeLists.txt in cwd, build and run project. grep CMakeLists to get first executable name
