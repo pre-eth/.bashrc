@@ -108,10 +108,7 @@ grc ()
 
 ### AWS RELATED DEFINITIONS ###
 export AWS_DEV_PROFILE=dev-profile
-export AWS_S3_PROFILE=s3-profile
-export AWS_DB_PROFILE=db-profile
 
-alias sslo="aws sso logout"
 alias s3="aws s3"
 alias dyndb="aws dynamodb"
 
@@ -119,14 +116,11 @@ alias dyndb="aws dynamodb"
 # needed to run AWS CLI commands. If you have an IAM user account and
 # have already ran aws configure, feel free to delete this function
 #
-# I only have one sso-session setup in my ~/.aws/config, so I never
-# really need to specify the session to the --sso-session option
-ssli ()
-{
-  # If your sso profiles don't end with the word "profile", replace
-  # "$1-profile" with $1 and provide your full profile name
-  aws sso login --profile "$1-profile"
-}
+# I only have one sso-session and one profile setup in my ~/.aws/config, 
+# so I never need to specify the session to the --sso-session option or
+# the --profile option
+alias ssli="aws sso login --profile $AWS_DEV_PROFILE"
+alias sslo="aws sso logout"
 
 # For deleting a file in a CodeCommit repository from your local machine
 #
