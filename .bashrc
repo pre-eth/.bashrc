@@ -156,6 +156,9 @@ alias vim="nvim"
 alias virt="virt-viewer"
 alias virtm="virt-manager"
 
+# My macOS VM that I run through QEMU for work
+alias imac="sudo virsh start macOS && virt --connect qemu:///system"
+
 # count files in directory
 alias cntf="ls -l . | egrep -c ‘^-’"
 
