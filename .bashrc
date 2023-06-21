@@ -9,6 +9,8 @@ export XTERM="truecolor"                           # getting proper colors
 export HISTCONTROL=ignoredups:erasedups            # no duplicate entries
 export ANDROID_HOME=$HOME/Android/Sdk
 
+export ITREE_TERM_FONT="/usr/local/share/fonts/iosevka"/"Iosevka Term Nerd Font Complete.ttf"
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
@@ -152,6 +154,7 @@ alias rc="code $HOME/Documents/bashrc/.bashrc"
 alias usrbin="cd /usr/local/bin/"
 alias fonts="cd /usr/local/share/fonts"
 alias nv="neovide"
+alias vba="visualboyadvance-m"
 alias vim="nvim"
 alias virt="virt-viewer"
 alias virtm="virt-manager"
