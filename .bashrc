@@ -144,6 +144,11 @@ accd ()
 	--profile $AWS_DEV_PROFILE
 }
 
+dybw ()
+{
+	dyndb batch-write-item --request-items file://$1 --profile $AWS_DEV_PROFILE
+}
+
 ### GENERAL ALIASES ###
 alias home="cd $HOME"
 alias dld="cd $HOME/Downloads"
