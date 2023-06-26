@@ -111,11 +111,11 @@ grc ()
 }
 
 ### AWS RELATED DEFINITIONS ###
-export AWS_DEV_PROFILE=dev-profile
+export AWS_PROFILE=dev
 
 alias s3="aws s3"
 alias dyndb="aws dynamodb"
-
+alias dyls="dyndb list-tables"
 # Request credentials from AWS for IAM Identity Center users. This is
 # needed to run AWS CLI commands. If you have an IAM user account and
 # have already ran aws configure, feel free to delete this function
@@ -123,7 +123,7 @@ alias dyndb="aws dynamodb"
 # I only have one sso-session and one profile setup in my ~/.aws/config, 
 # so I never need to specify the session to the --sso-session option or
 # the --profile option
-alias ssli="aws sso login --profile $AWS_DEV_PROFILE"
+alias ssli="aws sso login --profile $AWS_PROFILE"
 alias sslo="aws sso logout"
 
 # For deleting a file in a CodeCommit repository from your local machine
@@ -140,13 +140,12 @@ accd ()
 	aws codecommit delete-file --branch-name $1 \
 	--repository-name ${FILEPATH%%/*} \
 	--file-path ${FILEPATH#*/} \
-	--parent-commit-id $3 \
-	--profile $AWS_DEV_PROFILE
+	--parent-commit-id $3 
 }
 
 dybw ()
 {
-	dyndb batch-write-item --request-items file://$1 --profile $AWS_DEV_PROFILE
+	dyndb batch-write-item --request-items file://$1
 }
 
 ### GENERAL ALIASES ###
@@ -171,14 +170,14 @@ alias imac="sudo virsh start macOS && virt --connect qemu:///system"
 alias cntf="ls -l . | egrep -c ‘^-’"
 
 # Colorize grep output (good for log files)
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
 
 # confirm before overwriting something - credit to DistroTube for these
 alias cp="cp -i"
-alias mv='mv -i'
-alias rm='rm -i'
+alias mv="mv -i"
+alias rm="rm -i"
 alias rmd="rm -d"
 
 # User specific aliases and functions
