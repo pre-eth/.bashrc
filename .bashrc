@@ -166,7 +166,7 @@ alias vmlist="sudo virsh list --all"
 alias vmoff="sudo virsh shutdown macOS"
 
 # My macOS VM that I run through QEMU for work
-alias imac="virsh --connect qemu:///system start macOS; virt --connect qemu:///system"
+alias imac="sudo systemctl restart libvirtd; virsh --connect qemu:///system start macOS; virt --connect qemu:///system"
 
 # count files in directory
 alias cntf="ls -l . | egrep -c ‘^-’"
