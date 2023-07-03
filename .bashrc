@@ -111,11 +111,11 @@ grc ()
 }
 
 ### AWS RELATED DEFINITIONS ###
-export AWS_PROFILE=dev
+export AWS_PROFILE=dev-profile
 
 alias s3="aws s3"
-alias dyndb="aws dynamodb"
-alias dyls="dyndb list-tables"
+alias dydb="aws dynamodb"
+alias dyls="dydb list-tables"
 # Request credentials from AWS for IAM Identity Center users. This is
 # needed to run AWS CLI commands. If you have an IAM user account and
 # have already ran aws configure, feel free to delete this function
@@ -123,7 +123,7 @@ alias dyls="dyndb list-tables"
 # I only have one sso-session and one profile setup in my ~/.aws/config, 
 # so I never need to specify the session to the --sso-session option or
 # the --profile option
-alias ssli="aws sso login --profile $AWS_PROFILE"
+alias ssli="aws sso login"
 alias sslo="aws sso logout"
 
 # For deleting a file in a CodeCommit repository from your local machine
@@ -145,7 +145,7 @@ accd ()
 
 dybw ()
 {
-	dyndb batch-write-item --request-items file://$1
+	dydb batch-write-item --request-items file://$1
 }
 
 ### GENERAL ALIASES ###
