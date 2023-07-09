@@ -195,6 +195,9 @@ fi
 alias gti="git"
 alias push="git push origin main"
 alias pull="git pull origin main"
+alias clone="git clone"
+alias merge="git merge"
+
 
 # C/C++
 alias cppd="cd ~/Documents/C++"
