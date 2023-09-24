@@ -7,12 +7,10 @@
 ### EXPORT ###
 export XTERM="truecolor"                           # getting proper colors
 export HISTCONTROL=ignoredups:erasedups            # no duplicate entries
-export ANDROID_HOME=$HOME/Android/Sdk
-
 
 # Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+if [ -f /etc/zshrc ]; then
+	. /etc/zshrc
 fi
 
 # User specific environment
@@ -21,7 +19,7 @@ then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 
-export PATH=$ANDROID_HOME/platform-tools:$HOME/preethv/.cargo/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
 
 ### COMMANDS ###
 
@@ -50,18 +48,19 @@ ucp ()
 	printf "$(printf '\\U%08x' $1)\n"	
 }
 
-# install a font system wide, set permissions, and update font cache per
-# https://docs.fedoraproject.org/en-US/quick-docs/fonts/#system-fonts
-fin ()
+# shorthand for running a python file
+pyf ()
 {
-	local path="/usr/local/share/fonts"/"$1"
-	sudo mkdir -p $path
-	sudo cp ./"$1"/*.ttf $path
-	sudo chown -R root: $path
-	sudo chmod 644 $path/*
-	sudo restorecon -RF $path
-	sudo fc-cache -v
-	echo Installed font "$1"
+	python3 $1.py
+}
+
+# navigate to my CODE directory which has all my projects
+# no arg goes to dir root, otherwise cd to CODE/$1 if $1 
+# is name of a project dir
+cdcd ()
+{
+	[ $# -eq 0 ] && cd $HOME/CODE
+	[ $# -eq 1 ] && cd $HOME/CODE/$1	
 }
 
 ### AWS RELATED DEFINITIONS ###
@@ -104,25 +103,16 @@ dybw ()
 }
 
 ### GENERAL ALIASES ###
-alias home="cd $HOME"
+alias h="cd $HOME"
 alias dld="cd $HOME/Downloads"
 alias docs="cd $HOME/Documents"
 alias t3="cd $HOME/Documents/digitalt3"
-alias rc="code $HOME/Documents/bashrc/.bashrc"
-
-alias usrbin="cd /usr/local/bin/"
-alias fonts="cd /usr/local/share/fonts"
-alias nv="neovide"
-alias vba="visualboyadvance-m"
-alias vim="nvim"
-alias qemu="qemu-system-x86_64"
-alias virt="virt-viewer"
-alias virtm="virt-manager"
-alias vmlist="sudo virsh list --all"
-alias vmoff="sudo virsh shutdown macOS"
-
-# My macOS VM that I run through QEMU for work
-alias imac="sudo systemctl restart libvirtd; virsh --connect qemu:///system start macOS; virt --connect qemu:///system"
+alias rc="hx $HOME/Documents/bashrc/.bashrc"
+alias py="python3"
+alias pip="pip3"
+alias brin="brew install"
+alias brun="brew uninstall"
+alias zzz="pmset sleepnow"
 
 # count files in directory
 alias cntf="ls -l . | egrep -c ‘^-’"
@@ -144,6 +134,8 @@ alias push="git push origin main"
 alias pull="git pull origin main"
 alias clone="git clone"
 alias merge="git merge"
+alias stash="git stash"
+alias unstash="git stash pop"
 
 # git function to remove a remote origin and change it to the provided 
 # argument URL instead, then switch to master and push our repo
@@ -160,15 +152,14 @@ gno ()
 # function to push any of my bashrc changes to the github repo 
 grc ()
 {
-	cd ~/Documents/bashrc
+	cd ~/CODE/bashrc
 	git pull origin main
-	git stage .bashrc
+	git stage .zshrc
 	git push origin main
-	echo "Updated .bashrc on Github"
+	echo "Updated .zshrc on Github"
 }
 
 # C/C++
-alias cppd="cd ~/Documents/C++"
 alias hmake="cmake .. && make"	# stands for "hard make"
 
 # opens CMakeLists.txt regardless of whether it's in current dir or parent dir which can be
@@ -178,8 +169,8 @@ cmt ()
 {	# only one of these can be true at a time
 	# the [[ ]] syntax only works in bash and zsh and korn shells,
 	# so you may have to use [ ] if this isn't working for you
-	[[ -f CMakeLists.txt ]] && code CMakeLists.txt
-	[[ -f ../CMakeLists.txt ]] && code ../CMakeLists.txt
+	[[ -f CMakeLists.txt ]] && hx CMakeLists.txt
+	[[ -f ../CMakeLists.txt ]] && hx ../CMakeLists.txt
 }
 
 # if CMakeLists.txt in cwd, build and run project. grep CMakeLists to get first executable name
@@ -195,7 +186,6 @@ cbrun ()
 }
 
 # RUST
-alias rud="cd ~/Documents/Rust"
 alias ca="cargo"
 alias cah="cargo help"
 alias cav="cargo version"
@@ -246,5 +236,7 @@ if [ -d ~/.bashrc.d ]; then
 		fi
 	done
 fi
+
+neofetch
 
 unset rc
