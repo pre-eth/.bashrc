@@ -4,8 +4,7 @@
 # ██      ██   ██ ██      ██         ██    ██   ██    ██   ██ ██
 # ██      ██   ██ ███████ ███████    ██    ██   ██ ██ ██   ██  ██████
 
-### EXPORT ###
-export XTERM="truecolor"                           # getting proper colors
+
 export HISTCONTROL=ignoredups:erasedups            # no duplicate entries
 
 # Source global definitions
@@ -14,9 +13,11 @@ if [ -f /etc/zshrc ]; then
 fi
 
 # User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+# Had to install an updated version of clang to work with C++20
+# Prepend to PATH to supercede system version
+if ! [[ "$PATH" =~ "$HOME/.local:$HOME/bin:" ]]
 then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+    PATH="/opt/homebrew/opt/llvm/bin:$HOME/.local:$HOME/bin:$PATH"
 fi
 
 export PATH=$HOME/.cargo/bin:$PATH
@@ -61,6 +62,11 @@ cdcd ()
 {
 	[ $# -eq 0 ] && cd $HOME/CODE
 	[ $# -eq 1 ] && cd $HOME/CODE/$1	
+}
+
+cdl ()
+{
+	cd $1 && ls
 }
 
 ### AWS RELATED DEFINITIONS ###
@@ -110,9 +116,12 @@ alias t3="cd $HOME/Documents/digitalt3"
 alias rc="hx $HOME/Documents/bashrc/.bashrc"
 alias py="python3"
 alias pip="pip3"
+alias pup="pip3 install --upgrade"
 alias brin="brew install"
 alias brun="brew uninstall"
 alias zzz="pmset sleepnow"
+alias bye="sudo shutdown now"
+alias brb="sudo shutdown -r now"
 
 # count files in directory
 alias cntf="ls -l . | egrep -c ‘^-’"
@@ -239,4 +248,9 @@ fi
 
 neofetch
 
-unset rc
+# bun completions
+[ -s "/Users/preeth/.bun/_bun" ] && source "/Users/preeth/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
