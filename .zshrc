@@ -120,7 +120,7 @@ alias pup="pip3 install --upgrade"
 alias brin="brew install"
 alias brun="brew uninstall"
 alias zzz="pmset sleepnow"
-alias bye="sudo shutdown now"
+alias bye="sudo shutdown -s now"
 alias brb="sudo shutdown -r now"
 
 # count files in directory
