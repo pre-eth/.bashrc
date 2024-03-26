@@ -17,10 +17,10 @@ fi
 # Prepend to PATH to supercede system version
 if ! [[ "$PATH" =~ "$HOME/.local:$HOME/bin:" ]]
 then
-    PATH="/opt/homebrew/opt/llvm/bin:$HOME/.local:$HOME/bin:$PATH"
+    PATH="/opt/homebrew/opt/llvm/bin:$HOME/bin:$PATH"
 fi
 
-export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.cargo/bin:/opt/homebrew/opt/libtool/libexec/gnubin:$PATH:$HOME/.local/bin:~/go/bin
 
 ### COMMANDS ###
 
@@ -109,7 +109,6 @@ dybw ()
 }
 
 ### GENERAL ALIASES ###
-alias h="cd $HOME"
 alias dld="cd $HOME/Downloads"
 alias docs="cd $HOME/Documents"
 alias t3="cd $HOME/Documents/digitalt3"
@@ -120,6 +119,7 @@ alias pup="pip3 install --upgrade pip"
 alias brin="brew install"
 alias brun="brew uninstall"
 alias bren="brew reinstall"
+alias brup="brew upgrade && brew upgrade --greedy orbstack"
 alias zzz="pmset sleepnow"
 alias bye="sudo shutdown -s now"
 alias brb="sudo shutdown -r now"
@@ -146,6 +146,7 @@ alias clone="git clone"
 alias merge="git merge"
 alias stash="git stash"
 alias unstash="git stash pop"
+alias gstat="git status"
 
 # git function to remove a remote origin and change it to the provided 
 # argument URL instead, then switch to master and push our repo
@@ -193,6 +194,23 @@ cbrun ()
 		cmake .. && make
 		./"$prog"
 	}
+}
+
+# For running make from any directory within a C project, where the project root folder
+# is in my workspace. It checks if the prefix of the current path contains one of
+# these folders, and then runs make if so. It assumes that there will be a Makefile 
+rmake ()
+{
+	directories = $(cd ~/CODE && ls)
+	for d in "${directories[@]}"
+	do
+		if [[ $PWD -eq "~/CODE/$d"* ]];
+		then
+			local curr=$PWD
+			cd "~/CODE/$d" && make && cd curr
+			break
+		fi
+	done
 }
 
 # RUST
@@ -247,7 +265,14 @@ if [ -d ~/.bashrc.d ]; then
 	done
 fi
 
-neofetch
+# docker and orb stuff
+alias ostop="orb stop"
+alias orbrs="orb restart docker"
+alias orbcfg="orb config"
+alias orbls="orb list"
+alias orbh="orb --help"
+alias orbctlh="orbctl --help"
+alias fedora="orb start fedora; orb"
 
 # bun completions
 [ -s "/Users/preeth/.bun/_bun" ] && source "/Users/preeth/.bun/_bun"
@@ -255,3 +280,5 @@ neofetch
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+neofetch
