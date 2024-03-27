@@ -60,8 +60,9 @@ pyf ()
 # is name of a project dir
 cdcd ()
 {
-	[ $# -eq 0 ] && cd $HOME/CODE
-	[ $# -eq 1 ] && cd $HOME/CODE/$1	
+	[[ $# -eq 0 ]] && cd $HOME/CODE
+	[[ $# -eq 1 && -d $HOME/CODE/$1 ]] && cd $HOME/CODE/$1 && return 0
+	[[ $# -eq 1 && -d /Volumes/BACKUP/CODE/$1 ]] && cd /Volumes/BACKUP/CODE/$1
 }
 
 cdl ()
