@@ -15,12 +15,20 @@ fi
 # User specific environment
 # Had to install an updated version of clang to work with C++20
 # Prepend to PATH to supercede system version
-if ! [[ "$PATH" =~ "$HOME/.local:$HOME/bin:" ]]
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
-    PATH="/opt/homebrew/opt/llvm/bin:$HOME/bin:$PATH"
+    PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 fi
 
-export PATH=$HOME/.cargo/bin:/opt/homebrew/opt/libtool/libexec/gnubin:$PATH:$HOME/.local/bin:~/go/bin
+export GNUGREPBIN=$(brew --prefix grep)/libexec/gnubin
+export BINUTILSBIN=$(brew --prefix binutils)/libexec/gnubin
+export GNUTARBIN=$(brew --prefix gnu-tar)/libexec/gnubin
+
+export GOPATH=~/go
+export GOBIN=~/go/bin
+export CARGOBIN=$HOME/.cargo/bin
+
+export PATH=$GNUGREPBIN:$CARGOBIN:$GOBIN:$PATH
 
 ### COMMANDS ###
 
