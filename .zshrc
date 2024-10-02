@@ -60,7 +60,7 @@ ucp ()
 # shorthand for running a python file
 pyf ()
 {
-	python3 $1.py
+	python3.11 $1.py
 }
 
 # navigate to my CODE directory which has all my projects
