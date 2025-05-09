@@ -20,10 +20,10 @@ then
     PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 fi
 
+# Add Brew, Go, and Rust tools/libraries to PATH.
 export GNUGREPBIN=$(brew --prefix grep)/libexec/gnubin
 export BINUTILSBIN=$(brew --prefix binutils)/libexec/gnubin
 export GNUTARBIN=$(brew --prefix gnu-tar)/libexec/gnubin
-
 export GOPATH=~/go
 export GOBIN=~/go/bin
 export CARGOBIN=$HOME/.cargo/bin
@@ -31,6 +31,16 @@ export CARGOBIN=$HOME/.cargo/bin
 export PATH=$GNUGREPBIN:$CARGOBIN:$GOBIN:$PATH
 
 ### COMMANDS ###
+
+# Cleans Mac...
+macpurge() {
+	sudo rm -rf ~/Library/Caches/*
+	sudo rm -rf /var/log
+	sudo rm -rf ~/Library/Logs
+	brew autoremove
+	sudo rm -rf ~/Application Support/MobileSync/Backups
+	sudo rm -f ~/Messages/*
+}
 
 # shortcut to make file/dir readonly
 ro ()
@@ -60,7 +70,9 @@ ucp ()
 # shorthand for running a python file
 pyf ()
 {
-	python3.11 $1.py
+	local filename=$1
+	shift
+	python3 $filename.py $@
 }
 
 # navigate to my CODE directory which has all my projects
@@ -118,6 +130,7 @@ dybw ()
 }
 
 ### GENERAL ALIASES ###
+alias B:="cd /Volumes/BACKUP"
 alias dld="cd $HOME/Downloads"
 alias docs="cd $HOME/Documents"
 alias t3="cd $HOME/Documents/digitalt3"
@@ -155,7 +168,9 @@ alias clone="git clone"
 alias merge="git merge"
 alias stash="git stash"
 alias unstash="git stash pop"
+alias squash="git squash"
 alias gstat="git status"
+alias glog="git log"
 
 # git function to remove a remote origin and change it to the provided 
 # argument URL instead, then switch to master and push our repo
@@ -170,10 +185,12 @@ gno ()
 }
 
 # function to push any of my bashrc changes to the github repo 
+# this includes committing the latest changes.
 grc ()
 {
 	cd ~/CODE/bashrc
-	git pull origin main
+	git add .zshrc
+	git commit -m "${1}"
 	git stage .zshrc
 	git push origin main
 	echo "Updated .zshrc on Github"
@@ -210,16 +227,24 @@ cbrun ()
 # these folders, and then runs make if so. It assumes that there will be a Makefile 
 rmake ()
 {
-	directories = $(cd ~/CODE && ls)
-	for d in "${directories[@]}"
-	do
-		if [[ $PWD -eq "~/CODE/$d"* ]];
-		then
-			local curr=$PWD
-			cd "~/CODE/$d" && make && cd curr
-			break
-		fi
-	done
+	local curr=$PWD
+	cdcd $1
+	make
+	cd $curr
+}
+
+cproj ()
+{
+	cdcd
+	mkdir $1
+	cd $1
+	touch Makefile
+	touch README.md
+	touch build.sh
+	chmod +x build.sh
+	mkdir include
+	mkdir src
+	printf "Project %s created successfully" $1
 }
 
 # RUST
@@ -251,7 +276,7 @@ alias cvv="cargo -Vv"
 alias catea="cargo test --no-fail-fast"
 
 # opens Cargo.toml file in a Rust project if it exists for quick viewing/editing
-alias ctom="[ -f ./Cargo.toml ] && nano ./Cargo.toml"
+alias ctom="[ -f ./Cargo.toml ] && micro ./Cargo.toml"
 
 # build and suppress warnings
 alias caw="cargo rustc -- -Awarnings"
